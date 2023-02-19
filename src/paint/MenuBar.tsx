@@ -12,7 +12,7 @@ export default function MenuBar() {
 
 function MenuButton(props: PropsWithChildren) {
     return (
-        <button className="px-6 py-1.5 text-sm hover:bg-black/10">
+        <button className="px-9 py-3 text-base hover:bg-black/10">
             {props.children}
         </button>
     )
