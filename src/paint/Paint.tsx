@@ -11,7 +11,7 @@ export default function Paint() {
                 'bg-zinc-100 min-w-full min-h-screen'
             }>
                 <MenuBar />
-                <div className="flex bg-orange-500">
+                <div className="flex">
                     <ToolBar />
                     <CanvasContainer />
                 </div>

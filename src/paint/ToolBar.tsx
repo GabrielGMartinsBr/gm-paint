@@ -1,17 +1,33 @@
 import { PropsWithChildren } from 'react'
+import { BsPaintBucket, BsPencil } from 'react-icons/bs';
+import { BiPaintRoll, BiSelection } from 'react-icons/bi';
+import { CiEraser } from 'react-icons/ci';
+import { GiFairyWand } from 'react-icons/gi';
 
 export default function ToolBar() {
     return (
-        <div className="shadow-lg bg-green-200">
+        <div className="">
             <div className={
                 'grid grid-cols-2 w-24  h-min'
             }>
-                <ToolBarButton>SS</ToolBarButton>
-                <ToolBarButton>SR</ToolBarButton>
-                <ToolBarButton>B</ToolBarButton>
-                <ToolBarButton>P</ToolBarButton>
-                <ToolBarButton>C</ToolBarButton>
-                <ToolBarButton>L</ToolBarButton>
+                <ToolBarButton>
+                    <BiSelection />
+                </ToolBarButton>
+                <ToolBarButton>
+                    <GiFairyWand />
+                </ToolBarButton>
+                <ToolBarButton>
+                    <CiEraser />
+                </ToolBarButton>
+                <ToolBarButton>
+                    <BsPaintBucket />
+                </ToolBarButton>
+                <ToolBarButton>
+                    <BsPencil />
+                </ToolBarButton>
+                <ToolBarButton>
+                    <BiPaintRoll />
+                </ToolBarButton>
             </div>
         </div>
 
@@ -21,7 +37,10 @@ export default function ToolBar() {
 
 function ToolBarButton(props: PropsWithChildren) {
     return (
-        <button className="p-3 hover:bg-black/10 h-12">
+        <button className={
+            'p-3 hover:bg-black/10 h-12 ' +
+            'flex items-center justify-center'
+        }>
             {props.children}
         </button>
     )
