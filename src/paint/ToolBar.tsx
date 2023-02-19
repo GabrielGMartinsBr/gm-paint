@@ -1,8 +1,8 @@
 import { PropsWithChildren } from 'react'
 import { BsPaintBucket, BsPencil } from 'react-icons/bs';
-import { BiPaintRoll, BiSelection } from 'react-icons/bi';
+import { BiFontColor, BiPaintRoll, BiSelection } from 'react-icons/bi';
 import { CiEraser } from 'react-icons/ci';
-import { GiFairyWand } from 'react-icons/gi';
+import { GiFairyWand, GiSpray } from 'react-icons/gi';
 
 export default function ToolBar() {
     return (
@@ -27,6 +27,12 @@ export default function ToolBar() {
                 </ToolBarButton>
                 <ToolBarButton>
                     <BiPaintRoll />
+                </ToolBarButton>
+                <ToolBarButton>
+                    <GiSpray />
+                </ToolBarButton>
+                <ToolBarButton>
+                    <BiFontColor />
                 </ToolBarButton>
             </div>
         </div>
