@@ -1,7 +1,9 @@
+import Paint from './paint/Paint'
+
 function App() {
   return (
     <>
-      GM Paint!
+      <Paint />
     </>
   )
 }
