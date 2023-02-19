@@ -27,20 +27,41 @@ function ColorPalette() {
             'w-min ' +
             'grid grid-flow-col grid-rows-2'
         }>
-            <ColorBarButton>SS</ColorBarButton>
-            <ColorBarButton>SR</ColorBarButton>
-            <ColorBarButton>B</ColorBarButton>
-            <ColorBarButton>P</ColorBarButton>
-            <ColorBarButton>C</ColorBarButton>
-            <ColorBarButton>L</ColorBarButton>
+            <ColorButton color="black" />
+            <ColorButton color="white" />
+            <ColorButton color="grey" />
+            <ColorButton color="darkgrey" />
+            <ColorButton color="firebrick" />
+            <ColorButton color="red" />
+            <ColorButton color="purple" />
+            <ColorButton color="pink" />
+            <ColorButton color="blue" />
+            <ColorButton color="deepskyblue" />
+            <ColorButton color="cyan" />
+            <ColorButton color="turquoise" />
+            <ColorButton color="goldenrod" />
+            <ColorButton color="gold" />
+            <ColorButton color="orange" />
+            <ColorButton color="yellow" />
+            <ColorButton color="green" />
+            <ColorButton color="lime" />
+            <ColorButton color="greenyellow" />
+            <ColorButton color="brown" />
+            <ColorButton color="saddlebrown" />
+            <ColorButton color="sandybrown" />
         </div>
     )
 }
 
 
-function ColorBarButton(props: PropsWithChildren) {
+function ColorButton(props: PropsWithChildren<{ color: string }>) {
     return (
-        <button className="p-3 w-12 bg-green-400 hover:bg-black/10">
+        <button
+            className="p-3 w-9 h-9 bg-green-400 hover:bg-black/10"
+            style={{
+                backgroundColor: props.color,
+            }}
+        >
             {props.children}
         </button>
     )
