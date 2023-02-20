@@ -1,6 +1,6 @@
 import CanvasContainer from './CanvasContainer';
 import ColorBar from './ColorBar';
-import MenuBar from './MenuBar';
+import MenuBar from './menu/MenuBar';
 import ToolBar from './ToolBar';
 
 export default function Paint() {
