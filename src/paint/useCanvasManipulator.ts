@@ -23,8 +23,22 @@ export default function useCanvasManipulator() {
         ctx.restore();
     }
 
+    function setCircle(x: number, y: number, color: string, size: number) {
+        const { ctx } = getContext();
+        if (!ctx) {
+            return;
+        }
+        ctx.save();
+        ctx.fillStyle = color;
+        ctx.beginPath();
+        ctx.arc(x, y, size, 0, 2 * Math.PI);
+        ctx.fill();
+        ctx.restore();
+    }
+
     return {
         canvasRef,
-        setPixel
+        setPixel,
+        setCircle
     }
 }

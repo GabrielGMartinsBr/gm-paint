@@ -10,7 +10,7 @@ interface Coord {
 
 export default function Canvas() {
     const { paintStore } = usePaintContext();
-    const { activeTool, activeColorA } = paintStore.state;
+    const { activeTool, activeColorA, activeColorB } = paintStore.state;
     const canvasManipulator = useCanvasManipulator();
     const paramsRef = useRef({
         drawing: false,
@@ -38,7 +38,7 @@ export default function Canvas() {
         const { x, y } = getCoords(e);
         paramsRef.current.drawing = true;
         paramsRef.current.lastCoord = { x, y };
-        // canvasManipulator.setPixel(x, y);
+        useTool(x, y);
     }
 
     function handleMouseUp(e: MouseEvent) {
@@ -54,15 +54,10 @@ export default function Canvas() {
         const rect = target.getBoundingClientRect();
         const x = e.pageX - rect.left;
         const y = e.pageY - rect.top;
-        switch (activeTool) {
-            case PaintTool.PENCIL: {
-                handlePencilMove({ x, y })
-                break;
-            }
-        }
+        handleToolMove(x, y);
     }
 
-    function handlePencilMove({ x, y }: Coord) {
+    function handleToolMove(x: number, y: number) {
         const { lastCoord } = paramsRef.current;
 
         const dx = x - lastCoord.x;
@@ -75,9 +70,30 @@ export default function Canvas() {
         for (let i = 0; i < md; i++) {
             const posX = lastCoord.x + Math.floor(i * rx);
             const posY = lastCoord.y + Math.floor(i * ry);
-            canvasManipulator.setPixel(posX, posY, activeColorA);
+            useTool(posX, posY);
         }
         paramsRef.current.lastCoord = { x, y };
+    }
+
+    function useTool(x: number, y: number) {
+        switch (activeTool) {
+            case PaintTool.PENCIL: {
+                pencilDraw(x, y);
+                break;
+            }
+            case PaintTool.RUBBER: {
+                erase(x, y, 9);
+                break;
+            }
+        }
+    }
+
+    function pencilDraw(x: number, y: number) {
+        canvasManipulator.setPixel(x, y, activeColorA);
+    }
+
+    function erase(x: number, y: number, size = 3) {
+        canvasManipulator.setCircle(x, y, activeColorB, size);
     }
 
     return (
