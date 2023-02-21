@@ -1,4 +1,4 @@
-import { useMemo, useRef } from 'react';
+import { useRef } from 'react';
 
 export default function useCanvasManipulator() {
     const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -12,13 +12,13 @@ export default function useCanvasManipulator() {
         return { canvas, ctx };
     }
 
-    function setPixel(x: number, y: number) {
+    function setPixel(x: number, y: number, color: string) {
         const { ctx } = getContext();
         if (!ctx) {
             return;
         }
         ctx.save();
-        ctx.fillStyle = 'red';
+        ctx.fillStyle = color;
         ctx.fillRect(x, y, 1, 1)
         ctx.restore();
     }

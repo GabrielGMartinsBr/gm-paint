@@ -1,27 +1,6 @@
-import { PropsWithChildren } from 'react'
+import ColorButton from './ColorButton';
 
-export default function ColorBar() {
-    return (
-        <div className="flex">
-            <SelectedColors />
-            <ColorPalette />
-        </div>
-
-    )
-}
-
-function SelectedColors() {
-    return (
-        <div className="w-24 shadow-2xl flex items-center justify-center">
-
-            <div className="w-9 h-9 bg-black mr-1.5"></div>
-            <div className="w-9 h-9 bg-white"></div>
-
-        </div>
-    )
-}
-
-function ColorPalette() {
+export default function ColorPalette() {
     return (
         <div className={
             'w-min ' +
@@ -50,19 +29,5 @@ function ColorPalette() {
             <ColorButton color="saddlebrown" />
             <ColorButton color="sandybrown" />
         </div>
-    )
-}
-
-
-function ColorButton(props: PropsWithChildren<{ color: string }>) {
-    return (
-        <button
-            className="p-3 w-9 h-9 bg-green-400 hover:bg-black/10"
-            style={{
-                backgroundColor: props.color,
-            }}
-        >
-            {props.children}
-        </button>
     )
 }

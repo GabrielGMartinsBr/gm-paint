@@ -1,6 +1,6 @@
 import { usePaintReducer } from './store/reducer';
 import CanvasContainer from './CanvasContainer';
-import ColorBar from './ColorBar';
+import ColorBar from './color-bar/ColorBar';
 import MenuBar from './menu/MenuBar';
 import { PaintContext } from './store/context';
 import ToolBar from './ToolBar';

@@ -1,4 +1,5 @@
 import { MouseEvent, useRef } from 'react';
+import { usePaintContext } from './store/context';
 import useCanvasManipulator from './useCanvasManipulator';
 
 interface Coord {
@@ -7,6 +8,8 @@ interface Coord {
 }
 
 export default function Canvas() {
+    const { paintStore } = usePaintContext();
+    const { activeColorA } = paintStore.state;
     const canvasManipulator = useCanvasManipulator();
     const paramsRef = useRef({
         drawing: false,
@@ -61,10 +64,8 @@ export default function Canvas() {
             for (let i = 0; i < md; i++) {
                 const posX = lastCoord.x + Math.floor(i * rx);
                 const posY = lastCoord.y + Math.floor(i * ry);
-                canvasManipulator.setPixel(posX, posY);
+                canvasManipulator.setPixel(posX, posY, activeColorA);
             }
-
-            // canvasManipulator.setPixel(x, y);
             paramsRef.current.lastCoord = { x, y };
         }
     }
