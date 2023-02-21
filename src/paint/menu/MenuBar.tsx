@@ -1,5 +1,3 @@
-import { Menu } from '@headlessui/react';
-import { PropsWithChildren } from 'react';
 import MenuButton from './MenuButton';
 
 export default function MenuBar() {
