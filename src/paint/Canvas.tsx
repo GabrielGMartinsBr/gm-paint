@@ -1,10 +1,16 @@
 import { MouseEvent, useRef } from 'react';
 import useCanvasManipulator from './useCanvasManipulator';
 
+interface Coord {
+    x: number;
+    y: number;
+}
+
 export default function Canvas() {
     const canvasManipulator = useCanvasManipulator();
     const paramsRef = useRef({
-        drawing: false
+        drawing: false,
+        lastCoord: { x: 0, y: 0 } as Coord,
     });
 
     function getCoords(e: MouseEvent) {
@@ -27,6 +33,7 @@ export default function Canvas() {
         console.log('mouseDown', e.timeStamp);
         const { x, y } = getCoords(e);
         paramsRef.current.drawing = true;
+        paramsRef.current.lastCoord = { x, y };
         // canvasManipulator.setPixel(x, y);
     }
 
@@ -42,7 +49,23 @@ export default function Canvas() {
         const y = e.pageY - rect.top;
 
         if (paramsRef.current.drawing) {
-            canvasManipulator.setPixel(x, y);
+            const { lastCoord } = paramsRef.current;
+
+            const dx = x - lastCoord.x;
+            const dy = y - lastCoord.y;
+            const md = Math.max(Math.abs(dx), Math.abs(dy));
+
+            const rx = dx / md;
+            const ry = dy / md;
+
+            for (let i = 0; i < md; i++) {
+                const posX = lastCoord.x + Math.floor(i * rx);
+                const posY = lastCoord.y + Math.floor(i * ry);
+                canvasManipulator.setPixel(posX, posY);
+            }
+
+            // canvasManipulator.setPixel(x, y);
+            paramsRef.current.lastCoord = { x, y };
         }
     }
 
