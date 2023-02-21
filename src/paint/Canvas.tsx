@@ -1,5 +1,6 @@
 import { MouseEvent, useRef } from 'react';
 import { usePaintContext } from './store/context';
+import { PaintTool } from './store/state';
 import useCanvasManipulator from './useCanvasManipulator';
 
 interface Coord {
@@ -9,7 +10,7 @@ interface Coord {
 
 export default function Canvas() {
     const { paintStore } = usePaintContext();
-    const { activeColorA } = paintStore.state;
+    const { activeTool, activeColorA } = paintStore.state;
     const canvasManipulator = useCanvasManipulator();
     const paramsRef = useRef({
         drawing: false,
@@ -46,28 +47,37 @@ export default function Canvas() {
     }
 
     function handleMouseMove(e: MouseEvent<HTMLCanvasElement>) {
+        if (!paramsRef.current.drawing) {
+            return;
+        }
         const target = e.target as HTMLCanvasElement;
         const rect = target.getBoundingClientRect();
         const x = e.pageX - rect.left;
         const y = e.pageY - rect.top;
-
-        if (paramsRef.current.drawing) {
-            const { lastCoord } = paramsRef.current;
-
-            const dx = x - lastCoord.x;
-            const dy = y - lastCoord.y;
-            const md = Math.max(Math.abs(dx), Math.abs(dy));
-
-            const rx = dx / md;
-            const ry = dy / md;
-
-            for (let i = 0; i < md; i++) {
-                const posX = lastCoord.x + Math.floor(i * rx);
-                const posY = lastCoord.y + Math.floor(i * ry);
-                canvasManipulator.setPixel(posX, posY, activeColorA);
+        switch (activeTool) {
+            case PaintTool.PENCIL: {
+                handlePencilMove({ x, y })
+                break;
             }
-            paramsRef.current.lastCoord = { x, y };
         }
+    }
+
+    function handlePencilMove({ x, y }: Coord) {
+        const { lastCoord } = paramsRef.current;
+
+        const dx = x - lastCoord.x;
+        const dy = y - lastCoord.y;
+        const md = Math.max(Math.abs(dx), Math.abs(dy));
+
+        const rx = dx / md;
+        const ry = dy / md;
+
+        for (let i = 0; i < md; i++) {
+            const posX = lastCoord.x + Math.floor(i * rx);
+            const posY = lastCoord.y + Math.floor(i * ry);
+            canvasManipulator.setPixel(posX, posY, activeColorA);
+        }
+        paramsRef.current.lastCoord = { x, y };
     }
 
     return (

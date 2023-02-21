@@ -3,7 +3,7 @@ import CanvasContainer from './CanvasContainer';
 import ColorBar from './color-bar/ColorBar';
 import MenuBar from './menu/MenuBar';
 import { PaintContext } from './store/context';
-import ToolBar from './ToolBar';
+import ToolBar from './tool-bar/ToolBar';
 
 export default function Paint() {
     const [state, dispatch] = usePaintReducer();

@@ -1,8 +1,9 @@
-import { PropsWithChildren } from 'react'
 import { BsPaintBucket, BsPencil } from 'react-icons/bs';
 import { BiFontColor, BiPaintRoll, BiSelection } from 'react-icons/bi';
 import { CiEraser } from 'react-icons/ci';
 import { GiFairyWand, GiSpray } from 'react-icons/gi';
+import ToolBarButton from './ToolBarButton';
+import { PaintTool } from '../store/state';
 
 export default function ToolBar() {
     return (
@@ -10,44 +11,32 @@ export default function ToolBar() {
             <div className={
                 'grid grid-cols-2 w-24  h-min'
             }>
-                <ToolBarButton>
+                <ToolBarButton tool={PaintTool.SELECTION}>
                     <BiSelection />
                 </ToolBarButton>
-                <ToolBarButton>
+                <ToolBarButton tool={PaintTool.COLOR_SELECTION}>
                     <GiFairyWand />
                 </ToolBarButton>
-                <ToolBarButton>
+                <ToolBarButton tool={PaintTool.RUBBER}>
                     <CiEraser />
                 </ToolBarButton>
-                <ToolBarButton>
+                <ToolBarButton tool={PaintTool.PAINT_BUCKET}>
                     <BsPaintBucket />
                 </ToolBarButton>
-                <ToolBarButton>
+                <ToolBarButton tool={PaintTool.PENCIL}>
                     <BsPencil />
                 </ToolBarButton>
-                <ToolBarButton>
+                <ToolBarButton tool={PaintTool.BRUSH}>
                     <BiPaintRoll />
                 </ToolBarButton>
-                <ToolBarButton>
+                <ToolBarButton tool={PaintTool.SPRAY}>
                     <GiSpray />
                 </ToolBarButton>
-                <ToolBarButton>
+                <ToolBarButton tool={PaintTool.TEXT}>
                     <BiFontColor />
                 </ToolBarButton>
             </div>
         </div>
 
-    )
-}
-
-
-function ToolBarButton(props: PropsWithChildren) {
-    return (
-        <button className={
-            'p-3 hover:bg-black/10 h-12 ' +
-            'flex items-center justify-center'
-        }>
-            {props.children}
-        </button>
     )
 }
