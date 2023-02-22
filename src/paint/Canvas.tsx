@@ -34,7 +34,7 @@ export default function Canvas() {
     }
 
     function handleMouseDown(e: MouseEvent) {
-        console.log('mouseDown', e.timeStamp);
+        // console.log('mouseDown', e.timeStamp);
         const { x, y } = getCoords(e);
         paramsRef.current.drawing = true;
         paramsRef.current.lastCoord = { x, y };
@@ -83,6 +83,10 @@ export default function Canvas() {
             }
             case PaintTool.RUBBER: {
                 erase(x, y, 9);
+                break;
+            }
+            case PaintTool.PAINT_BUCKET: {
+                canvasManipulator.fill(x, y);
                 break;
             }
         }
