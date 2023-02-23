@@ -3,6 +3,7 @@ import { PropsWithChildren } from 'react';
 
 interface MenuItem {
     text: string;
+    cb?: () => void;
 }
 
 interface MenuButtonProps {
@@ -35,7 +36,7 @@ export default function MenuButton(props: PropsWithChildren<MenuButtonProps>) {
                         <div className="px-2 py-2">
                             {items.map(i => (
                                 <Menu.Item key={i.text}>
-                                    <button className={
+                                    <button onClick={i.cb} className={
                                         'flex w-full items-center rounded-md px-2 py-2 text-sm ' +
                                         'hover:bg-slate-600/5'
                                     }>
