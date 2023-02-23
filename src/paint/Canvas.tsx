@@ -86,7 +86,7 @@ export default function Canvas() {
                 break;
             }
             case PaintTool.PAINT_BUCKET: {
-                canvasManipulator.fill(x, y);
+                fill(x, y);
                 break;
             }
         }
@@ -98,6 +98,10 @@ export default function Canvas() {
 
     function erase(x: number, y: number, size = 3) {
         canvasManipulator.setCircle(x, y, activeColorB, size);
+    }
+
+    function fill(x: number, y: number) {
+        canvasManipulator.floodFill(x, y, activeColorA);
     }
 
     return (
@@ -113,6 +117,9 @@ export default function Canvas() {
                 onMouseMove={handleMouseMove}
                 width={800}
                 height={480}
+                style={{
+                    imageRendering: 'crisp-edges'
+                }}
             />
         </>
     )
