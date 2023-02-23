@@ -82,7 +82,7 @@ export default function Canvas() {
                 break;
             }
             case PaintTool.RUBBER: {
-                erase(x, y, 9);
+                erase(x, y, 12);
                 break;
             }
             case PaintTool.PAINT_BUCKET: {
@@ -96,8 +96,8 @@ export default function Canvas() {
         canvasManipulator.setPixel(x, y, activeColorA);
     }
 
-    function erase(x: number, y: number, size = 3) {
-        canvasManipulator.setCircle(x, y, activeColorB, size);
+    function erase(x: number, y: number, size = 4) {
+        canvasManipulator.setRect(x, y, activeColorB, size);
     }
 
     function fill(x: number, y: number) {

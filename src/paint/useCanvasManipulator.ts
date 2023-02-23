@@ -38,6 +38,17 @@ export default function useCanvasManipulator() {
         ctx.restore();
     }
 
+    function setRect(x: number, y: number, color: string, size: number) {
+        const { ctx } = getContext();
+        if (!ctx) {
+            return;
+        }
+        ctx.save();
+        ctx.fillStyle = color;
+        ctx.fillRect(Math.round(x - size / 2), y - Math.round(size / 2), size, size)
+        ctx.restore();
+    }
+
     function floodFill(x: number, y: number, color: string) {
         const { ctx, canvas } = getContext();
         if (!ctx) {
@@ -90,6 +101,7 @@ export default function useCanvasManipulator() {
         canvasRef,
         setPixel,
         setCircle,
-        floodFill
+        floodFill,
+        setRect
     }
 }
