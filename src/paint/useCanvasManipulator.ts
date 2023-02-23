@@ -1,9 +1,9 @@
-import { useRef } from 'react';
+import { usePaintContext } from './store/context';
 
 type Vec2 = [number, number];
 
 export default function useCanvasManipulator() {
-    const canvasRef = useRef<HTMLCanvasElement>(null);
+    const { canvasRef } = usePaintContext();
 
     function getContext() {
         const canvas = canvasRef.current;
@@ -98,7 +98,6 @@ export default function useCanvasManipulator() {
     }
 
     return {
-        canvasRef,
         setPixel,
         setCircle,
         floodFill,

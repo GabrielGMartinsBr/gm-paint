@@ -9,7 +9,7 @@ interface Coord {
 }
 
 export default function Canvas() {
-    const { paintStore } = usePaintContext();
+    const { paintStore, canvasRef } = usePaintContext();
     const { activeTool, activeColorA, activeColorB } = paintStore.state;
     const canvasManipulator = useCanvasManipulator();
     const paramsRef = useRef({
@@ -108,7 +108,7 @@ export default function Canvas() {
         <>
 
             <canvas
-                ref={canvasManipulator.canvasRef}
+                ref={canvasRef}
                 className='bg-white'
                 onMouseEnter={handleMouseEnter}
                 onMouseLeave={handleMouseLeave}

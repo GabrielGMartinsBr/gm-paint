@@ -6,14 +6,16 @@ interface PaintContextValue {
     paintStore: {
         state: PaintState;
         dispatch: Dispatch<PaintAction>;
-    }
+    },
+    canvasRef: React.RefObject<HTMLCanvasElement>;
 }
 
 const initialValue: PaintContextValue = {
     paintStore: {
         state: paintInitState,
         dispatch: () => null,
-    }
+    },
+    canvasRef: { current: null }
 }
 
 export const PaintContext = createContext<PaintContextValue>(initialValue);
