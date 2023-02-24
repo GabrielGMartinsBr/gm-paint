@@ -33,6 +33,7 @@ export class FileManager {
         return new Promise<File | null>((resolve, reject) => {
             const input = document.createElement('input');
             input.type = 'file';
+            input.accept = 'image/*';
             input.multiple = false;
             input.addEventListener('change', handleFileSelect);
             FileManager.emulateClick(input);
