@@ -16,10 +16,11 @@ export default function Paint() {
             canvasRef
         }}>
             <div className={
-                'bg-zinc-100 min-w-full min-h-screen'
+                'bg-zinc-100 min-w-full h-screen ' +
+                'flex flex-col overflow-auto '
             }>
                 <MenuBar />
-                <div className="flex">
+                <div className="flex flex-1 h-0">
                     <ToolBar />
                     <CanvasContainer />
                 </div>
