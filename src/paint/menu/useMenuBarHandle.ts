@@ -1,4 +1,4 @@
-import { saveAs } from 'file-saver';
+import { FileManager } from '../base/FileManager';
 import { usePaintContext } from '../store/context'
 
 export function useMenuBarHandle() {
@@ -23,9 +23,7 @@ export function useMenuBarHandle() {
             if (!ctx) {
                 return;
             }
-            const img = canvas.toDataURL('image/png')
-                .replace('image/png', 'image/octet-stream');
-            saveAs(img, 'image.png');
+            FileManager.saveImage(canvas);
         },
 
         /** Clear Image */
@@ -38,63 +36,18 @@ export function useMenuBarHandle() {
         },
 
         /** Load Image */
-        loadImage() {
-            function openFileSelector() {
-                const input = document.createElement('input');
-                input.type = 'file';
-                input.multiple = false;
-                input.addEventListener('change', handleFileSelect);
-                function handleFileSelect() {
-                    if (!input.files?.length) {
-                        return;
-                    }
-                    const [file] = input.files;
-                    readFile(file);
-                }
-                function emulateClick(node: Node) {
-                    try {
-                        node.dispatchEvent(new MouseEvent('click'))
-                    } catch (e) {
-                        var evt = document.createEvent('MouseEvents')
-                        evt.initMouseEvent('click', true, true, window, 0, 0, 0, 80,
-                            20, false, false, false, false, 0, null)
-                        node.dispatchEvent(evt)
-                    }
-                }
-                emulateClick(input);
+        async loadImage() {
+            const { canvas, ctx } = getContext();
+            if (!canvas) {
+                return;
             }
-
-            function readFile(file: File) {
-                const fr = new FileReader();
-                fr.addEventListener('loadend', handleFileRead)
-                fr.readAsDataURL(file);
-                function handleFileRead() {
-                    if (fr.result && typeof fr.result === 'string') {
-                        drawImage(fr.result);
-                    }
-                }
+            const img = await FileManager.openImage();
+            if (!img) {
+                return;
             }
-
-            function drawImage(src: string) {
-                const { canvas, ctx } = getContext();
-                if (!canvas) {
-                    return;
-                }
-                // canvas.width = 320;
-                const img = document.createElement('img');
-                img.addEventListener('load', handleImageLoaded)
-                img.src = src;
-                function handleImageLoaded() {
-                    if (!canvas) {
-                        return;
-                    }
-                    canvas.width = img.width;
-                    canvas.height = img.height;
-                    ctx.drawImage(img, 0, 0)
-                }
-            }
-
-            openFileSelector();
+            canvas.width = img.width;
+            canvas.height = img.height;
+            ctx.drawImage(img, 0, 0)
         }
     }
 }
