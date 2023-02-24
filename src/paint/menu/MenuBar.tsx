@@ -7,7 +7,7 @@ export default function MenuBar() {
     return (
         <div className="flex">
             <MenuButton items={[
-                { text: 'New', cb: menuHandler.clearImage },
+                { text: 'New', cb: menuHandler.resetDocument },
                 { text: 'Open', cb: menuHandler.loadImage },
                 { text: 'Save as', cb: menuHandler.save },
             ]}>

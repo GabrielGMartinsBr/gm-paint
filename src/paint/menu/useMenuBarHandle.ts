@@ -17,6 +17,15 @@ export function useMenuBarHandle() {
     }
 
     return {
+        resetDocument() {
+            const { canvas, ctx } = getContext();
+            if (!ctx) {
+                return;
+            }
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            canvas.width = 800;
+            canvas.height = 480;
+        },
         /** Save Image */
         save() {
             const { canvas, ctx } = getContext();
