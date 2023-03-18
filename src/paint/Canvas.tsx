@@ -52,8 +52,10 @@ export default function Canvas() {
         }
         const target = e.target as HTMLCanvasElement;
         const rect = target.getBoundingClientRect();
-        const x = e.pageX - rect.left;
-        const y = e.pageY - rect.top;
+        let x = e.pageX - rect.left;
+        let y = e.pageY - rect.top;
+        x = Math.round(x);
+        y = Math.round(y);
         handleToolMove(x, y);
     }
 
