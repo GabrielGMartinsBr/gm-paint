@@ -9,14 +9,20 @@ export enum PaintTool {
     TEXT = 'TEXT',
 }
 
+export enum DialogKey {
+    ABOUT = 'ABOUT',
+}
+
 export interface PaintState {
     activeTool: PaintTool;
     activeColorA: string;
     activeColorB: string;
+    activeDialog: null | DialogKey;
 }
 
 export const paintInitState: PaintState = {
     activeTool: PaintTool.PENCIL,
     activeColorA: '#000000',
     activeColorB: '#FFFFFF',
+    activeDialog: null,
 }

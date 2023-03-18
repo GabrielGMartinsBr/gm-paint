@@ -1,3 +1,4 @@
+import AboutDialog from '../dialogs/about/AboutDialog';
 import MenuButton from './MenuButton';
 import { useMenuBarHandle } from './useMenuBarHandle';
 
@@ -19,10 +20,11 @@ export default function MenuBar() {
                 Edit
             </MenuButton>
             <MenuButton items={[
-                { text: 'About' },
+                { text: 'About', cb: menuHandler.openAboutDialog },
             ]}>
                 Help
             </MenuButton>
+            <AboutDialog />
         </div>
     )
 }

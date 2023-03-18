@@ -1,8 +1,10 @@
-import { PaintTool } from './state';
+import { DialogKey, PaintTool } from './state';
 
 export enum PaintActionType {
     SELECT_TOOL = 'SELECT_TOOL',
     SELECT_COLOR = 'SELECT_COLOR',
+    OPEN_DIALOG = 'OPEN_DIALOG',
+    CLOSE_DIALOG = 'CLOSE_DIALOG',
 }
 
 export interface SelectToolAction {
@@ -15,4 +17,14 @@ export interface SelectColorAction {
     color: string;
 }
 
-export type PaintAction = SelectToolAction | SelectColorAction;
+export interface OpenDialog {
+    type: PaintActionType.OPEN_DIALOG;
+    dialogKey: DialogKey
+}
+
+export interface CloseDialog {
+    type: PaintActionType.CLOSE_DIALOG;
+}
+
+export type PaintAction = SelectToolAction | SelectColorAction |
+    OpenDialog | CloseDialog;

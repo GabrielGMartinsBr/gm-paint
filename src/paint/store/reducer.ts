@@ -13,6 +13,14 @@ const paintReducer = produce((draft: PaintState, action: PaintAction) => {
             draft.activeColorA = action.color;
             break;
         }
+        case PaintActionType.OPEN_DIALOG: {
+            draft.activeDialog = action.dialogKey;
+            break;
+        }
+        case PaintActionType.CLOSE_DIALOG: {
+            draft.activeDialog = null;
+            break;
+        }
         default: {
             console.warn('unexpected action', action);
         }

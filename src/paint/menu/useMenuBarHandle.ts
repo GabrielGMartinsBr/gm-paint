@@ -1,8 +1,11 @@
 import { FileManager } from '../base/FileManager';
+import { PaintActionType } from '../store/actions';
 import { usePaintContext } from '../store/context'
+import { DialogKey } from '../store/state';
 
 export function useMenuBarHandle() {
     const { canvasRef } = usePaintContext();
+    const { paintStore } = usePaintContext();
 
     function getContext() {
         const canvas = canvasRef.current;
@@ -17,6 +20,7 @@ export function useMenuBarHandle() {
     }
 
     return {
+        /** Reset Document */
         resetDocument() {
             const { canvas, ctx } = getContext();
             if (!ctx) {
@@ -57,6 +61,12 @@ export function useMenuBarHandle() {
             canvas.width = img.width;
             canvas.height = img.height;
             ctx.drawImage(img, 0, 0)
+        },
+        openAboutDialog() {
+            paintStore.dispatch({
+                type: PaintActionType.OPEN_DIALOG,
+                dialogKey: DialogKey.ABOUT
+            });
         }
     }
 }
