@@ -97,10 +97,21 @@ export default function useCanvasManipulator() {
         }
     }
 
+    function getPixel(x: number, y: number) {
+        const { ctx } = getContext();
+        if (!ctx) {
+            return;
+        }
+        const img = ctx.getImageData(x, y, 1, 1);
+        const [r, g, b, a] = img.data;
+        console.log({ r, g, b, a });
+    }
+
     return {
         setPixel,
         setCircle,
         floodFill,
-        setRect
+        setRect,
+        getPixel
     }
 }

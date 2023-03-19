@@ -1,11 +1,15 @@
 import { BsPaintBucket, BsPencil } from 'react-icons/bs';
-import { BiFontColor, BiPaintRoll, BiSelection } from 'react-icons/bi';
+import { BiFontColor, BiPaintRoll, BiSelection, BiZoomIn, BiZoomOut } from 'react-icons/bi';
 import { CiEraser } from 'react-icons/ci';
+import { CgColorPicker } from 'react-icons/cg';
 import { GiFairyWand, GiSpray } from 'react-icons/gi';
 import ToolBarButton from './ToolBarButton';
 import { PaintTool } from '../store/state';
+import { usePaintContext } from '../store/context';
 
 export default function ToolBar() {
+    const { paintStore: { state } } = usePaintContext();
+    const { zoomFactor } = state;
     return (
         <div className="">
             <div className={
@@ -34,6 +38,16 @@ export default function ToolBar() {
                 </ToolBarButton>
                 <ToolBarButton tool={PaintTool.TEXT}>
                     <BiFontColor />
+                </ToolBarButton>
+                <ToolBarButton tool={PaintTool.INSPECT}>
+                    <CgColorPicker />
+                </ToolBarButton>
+                <ToolBarButton tool={PaintTool.ZOOM}>
+                    {zoomFactor === 1 ? (
+                        <BiZoomIn />
+                    ) : (
+                        <BiZoomOut />
+                    )}
                 </ToolBarButton>
             </div>
         </div>

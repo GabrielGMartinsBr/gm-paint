@@ -7,6 +7,8 @@ export enum PaintTool {
     BRUSH = 'BRUSH',
     SPRAY = 'SPRAY',
     TEXT = 'TEXT',
+    INSPECT = 'INSPECT',
+    ZOOM = 'ZOOM',
 }
 
 export enum DialogKey {
@@ -18,6 +20,7 @@ export interface PaintState {
     activeColorA: string;
     activeColorB: string;
     activeDialog: null | DialogKey;
+    zoomFactor: number;
 }
 
 export const paintInitState: PaintState = {
@@ -25,4 +28,5 @@ export const paintInitState: PaintState = {
     activeColorA: '#000000',
     activeColorB: '#FFFFFF',
     activeDialog: null,
+    zoomFactor: 1
 }

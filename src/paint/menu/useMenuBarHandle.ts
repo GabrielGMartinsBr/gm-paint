@@ -38,7 +38,6 @@ export function useMenuBarHandle() {
             }
             FileManager.saveImage(canvas);
         },
-
         /** Clear Image */
         clearImage() {
             const { canvas, ctx } = getContext();
@@ -47,7 +46,6 @@ export function useMenuBarHandle() {
             }
             ctx.clearRect(0, 0, canvas.width, canvas.height);
         },
-
         /** Load Image */
         async loadImage() {
             const { canvas, ctx } = getContext();
@@ -61,6 +59,18 @@ export function useMenuBarHandle() {
             canvas.width = img.width;
             canvas.height = img.height;
             ctx.drawImage(img, 0, 0)
+        },
+        /** Test Zoom */
+        zoom() {
+            const { canvas, ctx } = getContext();
+            if (!canvas) {
+                return;
+            }
+            const { width, height } = canvas;
+            const img = ctx.getImageData(0, 0, width, height);
+            // ctx.clearRect(0, 0, canvas.width, canvas.height);
+            // ctx.scale(2, 2);
+            // ctx.putImageData(img, 0, 0);
         },
         openAboutDialog() {
             paintStore.dispatch({

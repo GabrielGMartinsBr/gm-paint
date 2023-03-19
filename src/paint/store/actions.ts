@@ -3,6 +3,7 @@ import { DialogKey, PaintTool } from './state';
 export enum PaintActionType {
     SELECT_TOOL = 'SELECT_TOOL',
     SELECT_COLOR = 'SELECT_COLOR',
+    CHANGE_ZOOM = 'CHANGE_ZOOM',
     OPEN_DIALOG = 'OPEN_DIALOG',
     CLOSE_DIALOG = 'CLOSE_DIALOG',
 }
@@ -17,6 +18,11 @@ export interface SelectColorAction {
     color: string;
 }
 
+export interface ChangeZoom {
+    type: PaintActionType.CHANGE_ZOOM;
+    zoomFactor: number;
+}
+
 export interface OpenDialog {
     type: PaintActionType.OPEN_DIALOG;
     dialogKey: DialogKey
@@ -27,4 +33,4 @@ export interface CloseDialog {
 }
 
 export type PaintAction = SelectToolAction | SelectColorAction |
-    OpenDialog | CloseDialog;
+    ChangeZoom | OpenDialog | CloseDialog;

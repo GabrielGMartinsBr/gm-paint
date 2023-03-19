@@ -21,6 +21,10 @@ const paintReducer = produce((draft: PaintState, action: PaintAction) => {
             draft.activeDialog = null;
             break;
         }
+        case PaintActionType.CHANGE_ZOOM: {
+            draft.zoomFactor = action.zoomFactor;
+            break;
+        }
         default: {
             console.warn('unexpected action', action);
         }

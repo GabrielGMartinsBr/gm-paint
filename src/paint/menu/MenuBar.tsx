@@ -15,6 +15,7 @@ export default function MenuBar() {
                 File
             </MenuButton>
             <MenuButton items={[
+                { text: 'Zoom', cb: menuHandler.zoom },
                 { text: 'Clear', cb: menuHandler.clearImage },
             ]}>
                 Edit

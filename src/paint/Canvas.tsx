@@ -1,4 +1,5 @@
-import { MouseEvent, useRef } from 'react';
+import { MouseEvent, useMemo, useRef } from 'react';
+import { PaintActionType } from './store/actions';
 import { usePaintContext } from './store/context';
 import { PaintTool } from './store/state';
 import useCanvasManipulator from './useCanvasManipulator';
@@ -16,12 +17,16 @@ export default function Canvas() {
         drawing: false,
         lastCoord: { x: 0, y: 0 } as Coord,
     });
+    const { zoomFactor } = paintStore.state;
+    const scaleTransform = useMemo(() => {
+        return `scale(${zoomFactor})`
+    }, [zoomFactor]);
 
     function getCoords(e: MouseEvent) {
         const target = e.target as HTMLCanvasElement;
         const rect = target.getBoundingClientRect();
-        const x = e.pageX - rect.left;
-        const y = e.pageY - rect.top;
+        const x = (e.pageX - rect.left) / zoomFactor;
+        const y = (e.pageY - rect.top) / zoomFactor;
         return { x, y };
     }
 
@@ -52,8 +57,9 @@ export default function Canvas() {
         }
         const target = e.target as HTMLCanvasElement;
         const rect = target.getBoundingClientRect();
-        let x = e.pageX - rect.left;
-        let y = e.pageY - rect.top;
+        console.log(e.pageY, e.clientY, e.screenY)
+        let x = (e.pageX - rect.left) / zoomFactor;
+        let y = (e.pageY - rect.top) / zoomFactor;
         x = Math.round(x);
         y = Math.round(y);
         handleToolMove(x, y);
@@ -91,6 +97,14 @@ export default function Canvas() {
                 fill(x, y);
                 break;
             }
+            case PaintTool.INSPECT: {
+                getPixel(x, y);
+                break;
+            }
+            case PaintTool.ZOOM: {
+                useZoom(x, y);
+                break;
+            }
         }
     }
 
@@ -106,12 +120,24 @@ export default function Canvas() {
         canvasManipulator.floodFill(x, y, activeColorA);
     }
 
+    function getPixel(x: number, y: number) {
+        console.log({ x, y })
+        canvasManipulator.getPixel(x, y);
+    }
+
+    function useZoom(x: number, y: number) {
+        const zoom = zoomFactor === 1 ? 2 : 1;
+        paintStore.dispatch({
+            type: PaintActionType.CHANGE_ZOOM,
+            zoomFactor: zoom
+        })
+    }
+
     return (
         <>
 
             <canvas
                 ref={canvasRef}
-                className='bg-white'
                 onMouseEnter={handleMouseEnter}
                 onMouseLeave={handleMouseLeave}
                 onMouseUp={handleMouseUp}
@@ -119,8 +145,10 @@ export default function Canvas() {
                 onMouseMove={handleMouseMove}
                 width={800}
                 height={480}
+                className='bg-white origin-top-left'
                 style={{
-                    imageRendering: 'crisp-edges'
+                    imageRendering: 'crisp-edges',
+                    transform: scaleTransform,
                 }}
             />
         </>

@@ -20,7 +20,7 @@ export default function Paint() {
                 'flex flex-col overflow-auto '
             }>
                 <MenuBar />
-                <div className="flex flex-1 h-0">
+                <div className="flex flex-grow h-0">
                     <ToolBar />
                     <CanvasContainer />
                 </div>
